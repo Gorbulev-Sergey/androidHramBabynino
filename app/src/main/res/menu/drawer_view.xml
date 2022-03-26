@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_posts"
+            android:enabled="false"
+            android:title="Публикации" />
+
+
+        <item
+            android:id="@+id/nav_anons"
+            android:title="     Объявления" />
+        <item
+            android:id="@+id/nav_news"
+            android:title="     Новости" />
+        <item
+            android:id="@+id/nav_video"
+            android:title="     Видео" />
+        <item
+            android:id="@+id/nav_for_kliros"
+            android:title="     Для клироса" />
+        <item
+            android:id="@+id/nav_life"
+            android:title="     Жития святых" />
+        <item
+            android:id="@+id/nav_our_chirch"
+            android:title="     О нашем храме" />
+        <item
+            android:id="@+id/nav_tainstva"
+            android:title="     О Таинствах" />
+        <item
+            android:id="@+id/nav_raznoe"
+            android:title="     Разное" />
+
+
+
+
+        <item
+            android:id="@+id/nav_schedule"
+            android:title="Расписание" />
+        <item
+            android:id="@+id/nav_photos"
+            android:title="Фотографии" />
+        <item
+            android:id="@+id/nav_contacts"
+            android:title="Контакты" />
+    </group>
+
+</menu>
