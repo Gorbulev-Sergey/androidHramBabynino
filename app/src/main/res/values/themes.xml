@@ -17,4 +17,8 @@
 
         <item name="android:textColor">?attr/colorTertiary</item>
     </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

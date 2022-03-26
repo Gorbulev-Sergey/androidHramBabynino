@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     android:minHeight="?attr/actionBarSize"
+    app:titleTextAppearance="@style/Toolbar.TitleText"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 </androidx.appcompat.widget.Toolbar>
