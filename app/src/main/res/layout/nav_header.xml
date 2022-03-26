@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:background="?attr/colorSecondary"
     android:gravity="bottom">
 
     <TextView
@@ -14,6 +14,8 @@
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textSize="15sp"
+        android:textColor="?attr/colorAccent"
+        android:background="?attr/colorSecondary"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
@@ -23,6 +25,7 @@
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textSize="15sp"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorTertiary"
+        android:background="?attr/colorSecondary"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 </LinearLayout>
