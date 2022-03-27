@@ -32,6 +32,7 @@ public class FullscreenActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
         //CookieManager.getInstance().setAcceptCookie(true);
         //webView.getSettings().setDomStorageEnabled(true);
+        webView.addJavascriptInterface(new MyJSInterface(this),"JSInterface");
         webView.loadUrl("https://hram-babynino.somee.com/");
     }
 

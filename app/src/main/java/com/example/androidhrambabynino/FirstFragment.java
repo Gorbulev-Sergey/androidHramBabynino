@@ -26,6 +26,7 @@ public class FirstFragment extends Fragment {
         webView = fragmentFirst.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new MyJSInterface(getActivity()),"JSInterface");
         //CookieManager.getInstance().setAcceptCookie(true);
         //webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(bundle.getString("url"));
