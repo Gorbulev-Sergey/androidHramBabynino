@@ -110,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.setTitle("Контакты");
                 bundle.putString("url", "https://hram-babynino.somee.com/android/contacts");
                 break;
-            case R.id.nav_fullscreen:
-                startActivity(new Intent(this, FullscreenActivity.class));
-                break;
             default:
                 toolbar.setTitle("Объявления");
                 bundle.putString("url", "https://hram-babynino.somee.com/android/posts");

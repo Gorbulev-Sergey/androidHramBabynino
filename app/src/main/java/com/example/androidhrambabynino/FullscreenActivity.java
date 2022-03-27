@@ -11,8 +11,10 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 public class FullscreenActivity extends AppCompatActivity {
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +29,25 @@ public class FullscreenActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-        WebView webView = findViewById(R.id.webviewFullscreen);
-        webView.getSettings().setJavaScriptEnabled(true);
+        webView = findViewById(R.id.webviewFullscreen);
         webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new MyJSInterface(this),"JSInterface");
         //CookieManager.getInstance().setAcceptCookie(true);
         //webView.getSettings().setDomStorageEnabled(true);
-        webView.addJavascriptInterface(new MyJSInterface(this),"JSInterface");
-        webView.loadUrl("https://hram-babynino.somee.com/");
+        Bundle bundle = new Bundle();
+        bundle = getIntent().getExtras();
+        webView.loadUrl(bundle.getString("url"));
     }
 
     public void returnBack(View view){
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("url","https://hram-babynino.somee.com/android/photos");
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        returnBack(webView);
     }
 }

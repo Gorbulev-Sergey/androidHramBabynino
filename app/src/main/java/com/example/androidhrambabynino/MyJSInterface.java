@@ -3,6 +3,7 @@ package com.example.androidhrambabynino;
 import android.app.Activity;
 import android.content.Intent;
 import android.webkit.JavascriptInterface;
+import android.widget.TextView;
 
 public class MyJSInterface {
     private Activity activity;
@@ -14,7 +15,7 @@ public class MyJSInterface {
     @JavascriptInterface
     public void goToFullscreen(String albumId){
         Intent intent = new Intent(activity, FullscreenActivity.class);
-        intent.putExtra("url","https://hram-babynino.somee.com/android/photos/" + albumId);
+        intent.putExtra("url","https://hram-babynino.somee.com/photos/" + albumId);
         activity.startActivity(intent);
     }
 
