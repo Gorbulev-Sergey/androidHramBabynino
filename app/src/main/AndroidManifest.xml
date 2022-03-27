@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.androidhrambabynino">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,9 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
+            android:name=".FullscreenActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Dark"/>
+        <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.Dark"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Dark">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

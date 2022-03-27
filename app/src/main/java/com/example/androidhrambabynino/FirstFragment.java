@@ -24,10 +24,10 @@ public class FirstFragment extends Fragment {
         fragmentFirst = inflater.inflate(R.layout.fragment_thirst, container, false);
 
         webView = fragmentFirst.findViewById(R.id.webview);
-        CookieManager.getInstance().setAcceptCookie(true);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setDomStorageEnabled(true);
+        //CookieManager.getInstance().setAcceptCookie(true);
+        //webView.getSettings().setDomStorageEnabled(true);
         webView.loadUrl(bundle.getString("url"));
 
         return fragmentFirst;

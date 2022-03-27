@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -41,8 +42,18 @@ public class MainActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(navigationView);
-        getSupportActionBar().setTitle("Объявления");
-        selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_anons));
+
+        Bundle bundleFromFullscreen = new Bundle();
+        bundleFromFullscreen = getIntent().getExtras();
+        if (bundleFromFullscreen != null
+                && bundleFromFullscreen.getString("url") != null
+                && !bundleFromFullscreen.getString("url").isEmpty()) {
+            getSupportActionBar().setTitle("Фотографии");
+            selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_photos));
+        } else {
+            getSupportActionBar().setTitle("Объявления");
+            selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_anons));
+        }
     }
 
     private void selectDrawerItem(MenuItem item) {
@@ -98,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_contacts:
                 toolbar.setTitle("Контакты");
                 bundle.putString("url", "https://hram-babynino.somee.com/android/contacts");
+                break;
+            case R.id.nav_fullscreen:
+                startActivity(new Intent(this, FullscreenActivity.class));
                 break;
             default:
                 toolbar.setTitle("Объявления");
