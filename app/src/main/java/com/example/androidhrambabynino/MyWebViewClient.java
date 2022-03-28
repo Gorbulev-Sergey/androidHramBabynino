@@ -1,11 +1,13 @@
 package com.example.androidhrambabynino;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toolbar;
 
 import java.io.Console;
 import java.net.MalformedURLException;
@@ -20,13 +22,14 @@ public class MyWebViewClient extends WebViewClient {
 
     @Override
     public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
-        if (url.contains("/photos/details/")) {
+        String newUrl = url.replace("somee.com/posts", "somee.com/android/posts");
+        if (newUrl.contains("/photos/details/")) {
             hide();
         }
         else{
             show();
         }
-        super.doUpdateVisitedHistory(view, url, isReload);
+        super.doUpdateVisitedHistory(view, newUrl, isReload);
     }
 
     public void hide() {

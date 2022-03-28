@@ -1,5 +1,6 @@
 package com.example.androidhrambabynino;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -7,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webview);
         myWebViewClient = new MyWebViewClient(this);
         webView.setWebViewClient(myWebViewClient);
+        webView.setBackgroundColor(Color.TRANSPARENT);
+        webView.getSettings().setSupportZoom(true);
         webView.getSettings().setJavaScriptEnabled(true);
 
         getSupportActionBar().setTitle("Объявления");
@@ -148,5 +154,20 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // Передайте любое изменение конфигурации переключателям ящика
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onStop() {
+        webView.reload();
+        super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        /*if (webView.canGoBack()) {
+            getSupportActionBar().setTitle("");
+            webView.goBack();
+        } else*/
+            super.onBackPressed();
     }
 }
