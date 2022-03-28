@@ -19,11 +19,11 @@ public class MyJSInterface{
 
     @JavascriptInterface
     public void goToFullscreen(String albumId){
-        ((MainActivity)context).hide();
+
     }
 
     @JavascriptInterface
     public void returnBack(){
-        ((MainActivity)context).show();
+
     }
 }
