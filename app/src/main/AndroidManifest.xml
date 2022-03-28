@@ -13,13 +13,7 @@
         <activity
             android:name=".TestActivity"
             android:exported="true"
-            android:theme="@style/Theme.Dark.YesAppBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.Dark.YesAppBar" />
         <activity
             android:name=".FullscreenActivity"
             android:exported="false"
@@ -27,8 +21,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.Dark">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

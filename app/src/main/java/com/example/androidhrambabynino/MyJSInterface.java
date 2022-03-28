@@ -1,28 +1,29 @@
 package com.example.androidhrambabynino;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class MyJSInterface {
-    private Activity activity;
+import androidx.fragment.app.Fragment;
 
-    public  MyJSInterface(Activity activity){
-        this.activity = activity;
+public class MyJSInterface{
+    Context context;
+
+    public MyJSInterface(Context c){
+        context = c;
     }
 
     @JavascriptInterface
     public void goToFullscreen(String albumId){
-        Intent intent = new Intent(activity, FullscreenActivity.class);
-        intent.putExtra("url","https://hram-babynino.somee.com/photos/" + albumId);
-        activity.startActivity(intent);
+        ((MainActivity)context).hide();
     }
 
     @JavascriptInterface
     public void returnBack(){
-        Intent intent = new Intent(activity, MainActivity.class);
-        intent.putExtra("url","https://hram-babynino.somee.com/android/photos");
-        activity.startActivity(intent);
+        ((MainActivity)context).show();
     }
 }

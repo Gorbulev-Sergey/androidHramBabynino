@@ -2,6 +2,7 @@ package com.example.androidhrambabynino;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,10 +10,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowInsets;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -21,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle drawerToggle;
-    Bundle bundle = new Bundle();
+    MyJSInterface myJSInterface;
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,88 +55,70 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(navigationView);
 
-        Bundle bundleFromFullscreen = new Bundle();
-        bundleFromFullscreen = getIntent().getExtras();
-        if (bundleFromFullscreen != null
-                && bundleFromFullscreen.getString("url") != null
-                && !bundleFromFullscreen.getString("url").isEmpty()) {
-            getSupportActionBar().setTitle("Фотографии");
-            selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_photos));
-        } else {
-            getSupportActionBar().setTitle("Объявления");
-            selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_anons));
-        }
+        webView = findViewById(R.id.webview);
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new MyJSInterface(this), "JSInterface");
+
+        getSupportActionBar().setTitle("Объявления");
+        selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_anons));
     }
 
     private void selectDrawerItem(MenuItem item) {
-        // Создайте новый фрагмент и укажите фрагмент для отображения на основе нажатого элемента навигации
-        Fragment fragment = null;
-        Class fragmentClass = FirstFragment.class;
         switch (item.getItemId()) {
             case R.id.nav_posts:
                 toolbar.setTitle("Объявления");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/");
                 break;
             case R.id.nav_anons:
                 toolbar.setTitle("Объявления");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/объявления");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/объявления");
                 break;
             case R.id.nav_news:
                 toolbar.setTitle("Новости");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/новости");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/новости");
                 break;
             case R.id.nav_video:
                 toolbar.setTitle("Видео");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/видео");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/видео");
                 break;
             case R.id.nav_for_kliros:
                 toolbar.setTitle("Для клироса");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/для клироса");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/для клироса");
                 break;
             case R.id.nav_life:
                 toolbar.setTitle("Жития святых");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/жития святых");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/жития святых");
                 break;
             case R.id.nav_our_chirch:
                 toolbar.setTitle("О нашем храме");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/о нашем храме");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/о нашем храме");
                 break;
             case R.id.nav_tainstva:
                 toolbar.setTitle("О Таинствах");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/о таинствах");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/о таинствах");
                 break;
             case R.id.nav_raznoe:
                 toolbar.setTitle("Разное");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts/разное");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts/разное");
                 break;
 
             case R.id.nav_schedule:
                 toolbar.setTitle("Расписание богослужений");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/schedule");
+                webView.loadUrl("https://hram-babynino.somee.com/android/schedule");
                 break;
             case R.id.nav_photos:
                 toolbar.setTitle("Фотографии");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/photos");
+                webView.loadUrl("https://hram-babynino.somee.com/android/photos");
                 break;
             case R.id.nav_contacts:
                 toolbar.setTitle("Контакты");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/contacts");
+                webView.loadUrl("https://hram-babynino.somee.com/android/contacts");
                 break;
             default:
                 toolbar.setTitle("Объявления");
-                bundle.putString("url", "https://hram-babynino.somee.com/android/posts");
+                webView.loadUrl("https://hram-babynino.somee.com/android/posts");
         }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-            fragment.setArguments(bundle);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Вставить фрагмент, заменив любой существующий фрагмент
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         // Выделение выбранного элемента было выполнено с помощью NavigationView
         item.setChecked(true);
@@ -167,5 +161,20 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // Передайте любое изменение конфигурации переключателям ящика
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    public void hide() {
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.INVISIBLE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
+
+    public void show() {
+        if (getSupportActionBar() != null) getSupportActionBar().show();
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.VISIBLE);
     }
 }

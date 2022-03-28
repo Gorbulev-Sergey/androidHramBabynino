@@ -10,15 +10,23 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+
 public class FirstFragment extends Fragment {
+    public MainActivity mainActivity;
+    public MyJSInterface myJSInterface;
     private WebView webView;
     private View fragmentFirst;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mainActivity = (MainActivity) getActivity();
+        myJSInterface = new MyJSInterface(mainActivity);
         Bundle bundle = getArguments();
 
         fragmentFirst = inflater.inflate(R.layout.fragment_thirst, container, false);
@@ -26,7 +34,7 @@ public class FirstFragment extends Fragment {
         webView = fragmentFirst.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(new MyJSInterface(getActivity()),"JSInterface");
+        webView.addJavascriptInterface(myJSInterface, "JSInterface");
         webView.getSettings().setUserAgentString("Desktop");
         //CookieManager.getInstance().setAcceptCookie(true);
         //webView.getSettings().setDomStorageEnabled(true);

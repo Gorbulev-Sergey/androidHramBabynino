@@ -32,7 +32,7 @@ public class FullscreenActivity extends AppCompatActivity {
         webView = findViewById(R.id.webviewFullscreen);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(new MyJSInterface(this),"JSInterface");
+        //webView.addJavascriptInterface(new MyJSInterface(this),"JSInterface");
         //CookieManager.getInstance().setAcceptCookie(true);
         //webView.getSettings().setDomStorageEnabled(true);
         Bundle bundle = new Bundle();
