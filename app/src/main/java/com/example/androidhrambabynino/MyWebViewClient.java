@@ -5,8 +5,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.View;
 import android.webkit.ConsoleMessage;
+import android.webkit.RenderProcessGoneDetail;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import java.io.Console;
@@ -21,15 +24,33 @@ public class MyWebViewClient extends WebViewClient {
     }
 
     @Override
-    public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
-        String newUrl = url.replace("somee.com/posts", "somee.com/android/posts");
-        if (newUrl.contains("/photos/details/")) {
-            hide();
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        if (url.contains("https://hram-babynino.somee.com")) {
+            view.loadUrl(url);
+        } else {
+            Toast.makeText(context, "Отсутствует подключение к интернет", Toast.LENGTH_LONG).show();
         }
-        else{
+        return true;
+    }
+
+    @Override
+    public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
+        if (url.contains("/photos/details/")) {
+            hide();
+        } else {
             show();
         }
-        super.doUpdateVisitedHistory(view, newUrl, isReload);
+        super.doUpdateVisitedHistory(view, url, isReload);
+    }
+
+    @Override
+    public void onLoadResource(WebView view, String url) {
+        if (view.getTitle().contains("http") || view.getTitle().contains("Храм")) {
+            context.getSupportActionBar().setTitle("");
+        } else {
+            context.getSupportActionBar().setTitle(view.getTitle());
+        }
+        super.onLoadResource(view, url);
     }
 
     public void hide() {
@@ -45,5 +66,9 @@ public class MyWebViewClient extends WebViewClient {
         if (context.getSupportActionBar() != null) context.getSupportActionBar().show();
         context.getWindow().getDecorView().setSystemUiVisibility(
                 View.VISIBLE);
+    }
+
+    String toUpperFirstChar(String item) {
+        return item.substring(0, 1).toUpperCase() + item.substring(1);
     }
 }

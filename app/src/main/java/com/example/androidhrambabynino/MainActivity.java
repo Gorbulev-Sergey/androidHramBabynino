@@ -31,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //setTheme(R.style.Theme_Light);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -53,63 +56,62 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setJavaScriptEnabled(true);
 
-        getSupportActionBar().setTitle("Объявления");
         selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_anons));
     }
 
     private void selectDrawerItem(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_posts:
-                toolbar.setTitle("Объявления");
+                //toolbar.setTitle("Объявления");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/");
                 break;
             case R.id.nav_anons:
-                toolbar.setTitle("Объявления");
+                //toolbar.setTitle("Объявления");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/объявления");
                 break;
             case R.id.nav_news:
-                toolbar.setTitle("Новости");
+                //toolbar.setTitle("Новости");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/новости");
                 break;
             case R.id.nav_video:
-                toolbar.setTitle("Видео");
+                //toolbar.setTitle("Видео");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/видео");
                 break;
             case R.id.nav_for_kliros:
-                toolbar.setTitle("Для клироса");
+                //toolbar.setTitle("Для клироса");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/для клироса");
                 break;
             case R.id.nav_life:
-                toolbar.setTitle("Жития святых");
+                //toolbar.setTitle("Жития святых");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/жития святых");
                 break;
             case R.id.nav_our_chirch:
-                toolbar.setTitle("О нашем храме");
+                //toolbar.setTitle("О нашем храме");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/о нашем храме");
                 break;
             case R.id.nav_tainstva:
-                toolbar.setTitle("О Таинствах");
+                //toolbar.setTitle("О таинствах");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/о таинствах");
                 break;
             case R.id.nav_raznoe:
-                toolbar.setTitle("Разное");
+                //toolbar.setTitle("Разное");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts/разное");
                 break;
 
             case R.id.nav_schedule:
-                toolbar.setTitle("Расписание богослужений");
+                //toolbar.setTitle("Расписание богослужений");
                 webView.loadUrl("https://hram-babynino.somee.com/android/schedule");
                 break;
             case R.id.nav_photos:
-                toolbar.setTitle("Фотографии");
+                //toolbar.setTitle("Фотографии");
                 webView.loadUrl("https://hram-babynino.somee.com/android/photos");
                 break;
             case R.id.nav_contacts:
-                toolbar.setTitle("Контакты");
+                //toolbar.setTitle("Контакты");
                 webView.loadUrl("https://hram-babynino.somee.com/android/contacts");
                 break;
             default:
-                toolbar.setTitle("Объявления");
+                //toolbar.setTitle("Объявления");
                 webView.loadUrl("https://hram-babynino.somee.com/android/posts");
         }
 
@@ -164,10 +166,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        /*if (webView.canGoBack()) {
-            getSupportActionBar().setTitle("");
+        if (webView.canGoBack()) {
             webView.goBack();
-        } else*/
+        } else
             super.onBackPressed();
     }
 }
