@@ -1,20 +1,26 @@
 package com.example.androidhrambabynino;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.text.Layout;
+import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
-import android.webkit.ConsoleMessage;
-import android.webkit.RenderProcessGoneDetail;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import java.io.Console;
-import java.net.MalformedURLException;
-import java.net.URL;
+import androidx.annotation.Dimension;
+import androidx.annotation.GravityInt;
+import androidx.core.view.ContentInfoCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.transition.Slide;
 
 public class MyWebViewClient extends WebViewClient {
     MainActivity context;
@@ -26,11 +32,28 @@ public class MyWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         if (url.contains("https://hram-babynino.somee.com")) {
-            view.loadUrl(url);
-        } else {
-            Toast.makeText(context, "Отсутствует подключение к интернет", Toast.LENGTH_LONG).show();
+            view.loadUrl(url.replace("backurl=/posts", "backurl=/android/posts"));
         }
         return true;
+    }
+
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        if (!hasInternet(context)) {
+            context.getSupportActionBar().setTitle("");
+            view.setVisibility(View.GONE);
+            context.findViewById(R.id.layout_error).setVisibility(View.VISIBLE);
+            context.findViewById(R.id.buttonReloadWebview).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        view.reload();
+                    }
+                });
+        } else {
+            view.setVisibility(View.VISIBLE);
+            context.findViewById(R.id.layout_error).setVisibility(View.GONE);
+        }
+        super.onPageStarted(view, url, favicon);
     }
 
     @Override
@@ -70,5 +93,16 @@ public class MyWebViewClient extends WebViewClient {
 
     String toUpperFirstChar(String item) {
         return item.substring(0, 1).toUpperCase() + item.substring(1);
+    }
+
+    public boolean hasInternet(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo NetworkInfo = connectivityManager.getActiveNetworkInfo();
+            if (NetworkInfo != null)
+                if (NetworkInfo.isConnected())
+                    return true;
+        }
+        return false;
     }
 }

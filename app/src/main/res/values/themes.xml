@@ -18,6 +18,11 @@
         <item name="android:textColor">?attr/colorTertiary</item>
     </style>
 
+    <style name="Theme.Dark.Fullscreen" parent="Theme.App">
+        <item name="android:background">@color/gray</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="Theme.Light" parent="Theme.App">
         <item name="colorPrimary">@color/light</item>
         <item name="colorSecondary">@color/gray</item>

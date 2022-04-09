@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setJavaScriptEnabled(true);
 
-        selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_anons));
+        selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_schedule));
     }
 
     private void selectDrawerItem(MenuItem item) {
