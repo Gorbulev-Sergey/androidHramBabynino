@@ -33,8 +33,6 @@
             android:title="     Разное" />
 
 
-
-
         <item
             android:id="@+id/nav_schedule"
             android:title="Расписание" />

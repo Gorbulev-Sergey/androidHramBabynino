@@ -1,144 +1,139 @@
 package com.example.androidhrambabynino;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.google.android.material.navigation.NavigationView;
 
+
 public class MainActivity extends AppCompatActivity {
-    DrawerLayout mainLayout;
+    DrawerLayout drawer;
     Toolbar toolbar;
-    NavigationView navigationView;
-    ActionBarDrawerToggle drawerToggle;
+    NavigationView navigation;
+    ActionBarDrawerToggle toggler;
     MyWebViewClient myWebViewClient;
-    WebView webView;
+    WebView webview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main);
 
-        //setTheme(R.style.Theme_Light);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mainLayout = (DrawerLayout) findViewById(R.id.main_layout);
-        drawerToggle = setupDrawerToggle();
+        drawer = findViewById(R.id.main_layout);
+        drawer.addDrawerListener(toggler);
 
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerToggle.syncState();
+        toggler = setupDrawerToggle();
+        toggler.setDrawerIndicatorEnabled(true);
+        toggler.syncState();
 
-        mainLayout.addDrawerListener(drawerToggle);
+        navigation = findViewById(R.id.navigation);
+        setupDrawerContent(navigation);
 
-        navigationView = (NavigationView) findViewById(R.id.nvView);
-        setupDrawerContent(navigationView);
-
-        webView = findViewById(R.id.webview);
+        webview = findViewById(R.id.webview);
         myWebViewClient = new MyWebViewClient(this);
-        webView.setWebViewClient(myWebViewClient);
-        webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.getSettings().setSupportZoom(true);
-        webView.getSettings().setJavaScriptEnabled(true);
+        webview.setWebViewClient(myWebViewClient);
+        webview.setBackgroundColor(Color.TRANSPARENT);
+        webview.getSettings().setSupportZoom(true);
+        webview.getSettings().setJavaScriptEnabled(true);
 
-        selectDrawerItem(navigationView.getMenu().findItem(R.id.nav_schedule));
+        selectDrawerItem(navigation.getMenu().findItem(R.id.nav_schedule));
     }
 
     private void selectDrawerItem(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_posts:
                 //toolbar.setTitle("Объявления");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/");
                 break;
             case R.id.nav_anons:
                 //toolbar.setTitle("Объявления");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/объявления");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/объявления");
                 break;
             case R.id.nav_news:
                 //toolbar.setTitle("Новости");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/новости");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/новости");
                 break;
             case R.id.nav_video:
                 //toolbar.setTitle("Видео");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/видео");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/видео");
                 break;
             case R.id.nav_for_kliros:
                 //toolbar.setTitle("Для клироса");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/для клироса");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/для клироса");
                 break;
             case R.id.nav_life:
                 //toolbar.setTitle("Жития святых");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/жития святых");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/жития святых");
                 break;
             case R.id.nav_our_chirch:
                 //toolbar.setTitle("О нашем храме");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/о нашем храме");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/о нашем храме");
                 break;
             case R.id.nav_tainstva:
                 //toolbar.setTitle("О таинствах");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/о таинствах");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/о таинствах");
                 break;
             case R.id.nav_raznoe:
                 //toolbar.setTitle("Разное");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts/разное");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts/разное");
                 break;
 
             case R.id.nav_schedule:
                 //toolbar.setTitle("Расписание богослужений");
-                webView.loadUrl("https://hram-babynino.somee.com/android/schedule");
+                webview.loadUrl("https://hram-babynino.somee.com/android/schedule");
                 break;
             case R.id.nav_photos:
                 //toolbar.setTitle("Фотографии");
-                webView.loadUrl("https://hram-babynino.somee.com/android/photos");
+                webview.loadUrl("https://hram-babynino.somee.com/android/photos");
                 break;
             case R.id.nav_contacts:
                 //toolbar.setTitle("Контакты");
-                webView.loadUrl("https://hram-babynino.somee.com/android/contacts");
+                webview.loadUrl("https://hram-babynino.somee.com/android/contacts");
                 break;
             default:
                 //toolbar.setTitle("Объявления");
-                webView.loadUrl("https://hram-babynino.somee.com/android/posts");
+                webview.loadUrl("https://hram-babynino.somee.com/android/posts");
         }
 
         // Выделение выбранного элемента было выполнено с помощью NavigationView
         item.setChecked(true);
         // Закройте навигационный ящик
-        mainLayout.closeDrawers();
+        drawer.closeDrawers();
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
+                menuItem -> {
+                    selectDrawerItem(menuItem);
+                    return true;
                 });
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mainLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
+        if (toggler.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -148,26 +143,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Синхронизируйте состояние переключения после того, как произошло onRestoreInstanceState.
-        drawerToggle.syncState();
+        toggler.syncState();
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Передайте любое изменение конфигурации переключателям ящика
-        drawerToggle.onConfigurationChanged(newConfig);
+        toggler.onConfigurationChanged(newConfig);
     }
 
     @Override
     protected void onStop() {
-        webView.reload();
+        webview.reload();
         super.onStop();
     }
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
+        if (webview.canGoBack()) {
+            webview.goBack();
         } else
             super.onBackPressed();
     }

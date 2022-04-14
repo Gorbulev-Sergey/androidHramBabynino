@@ -1,16 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AndroidHramBabynino" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="App" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/secondaryColor</item>
+        <item name="colorOnPrimary">@color/secondaryTextColor</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+
+        <item name="background">@color/secondaryColor</item>
+        <item name="colorOnBackground">@color/secondaryTextColor</item>
+        <item name="colorSurface">@color/secondaryDarkColor</item>
+        <item name="colorOnSurface">@color/secondaryTextColor</item>
+
+        <item name="colorAccent">@color/danger</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/secondaryColor</item>
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="App.Fullscreen" parent="App">
+        <item name="android:background">@color/secondaryColor</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="App.NavigationView" parent="ThemeOverlay.Material3.NavigationView">
+        <item name="colorPrimary">?attr/colorAccent</item>
+    </style>
+
+    <style name="App.Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">15sp</item>
     </style>
 </resources>
