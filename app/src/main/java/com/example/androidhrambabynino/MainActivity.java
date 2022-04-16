@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         webview.setWebViewClient(myWebViewClient);
         webview.setBackgroundColor(Color.TRANSPARENT);
         webview.getSettings().setSupportZoom(true);
+        webview.getSettings().setDomStorageEnabled(true);
         webview.getSettings().setJavaScriptEnabled(true);
 
         selectDrawerItem(navigation.getMenu().findItem(R.id.nav_schedule));
