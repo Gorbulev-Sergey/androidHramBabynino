@@ -18,12 +18,12 @@ public class MyJSInterface{
     }
 
     @JavascriptInterface
-    public void goToFullscreen(String albumId){
+    public void activateDarkTheme(){
 
     }
 
     @JavascriptInterface
-    public void returnBack(){
+    public void activateLightTheme(){
 
     }
 }

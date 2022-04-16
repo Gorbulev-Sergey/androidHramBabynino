@@ -44,50 +44,27 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("");
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().
-
-                setDisplayHomeAsUpEnabled(true);
-
-        drawer =
-
-                findViewById(R.id.main_layout);
+        drawer = findViewById(R.id.main_layout);
         drawer.addDrawerListener(toggler);
 
-        toggler = new
-
-                ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        toggler = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         toggler.setDrawerIndicatorEnabled(true);
         toggler.syncState();
 
-        navigation =
-
-                findViewById(R.id.navigation);
-
+        navigation = findViewById(R.id.navigation);
         setupDrawerContent(navigation);
 
-        webview =
-
-                findViewById(R.id.webview);
-
-        myWebViewClient = new
-
-                MyWebViewClient(this);
+        webview = findViewById(R.id.webview);
+        myWebViewClient = new MyWebViewClient(this);
         webview.setWebViewClient(myWebViewClient);
         webview.setBackgroundColor(Color.TRANSPARENT);
-        webview.getSettings().
+        webview.getSettings().setSupportZoom(true);
+        webview.getSettings().setDomStorageEnabled(true);
+        webview.getSettings().setJavaScriptEnabled(true);
 
-                setSupportZoom(true);
-        webview.getSettings().
-
-                setDomStorageEnabled(true);
-        webview.getSettings().
-
-                setJavaScriptEnabled(true);
-
-        selectDrawerItem(navigation.getMenu().
-
-                findItem(R.id.nav_schedule));
+        selectDrawerItem(navigation.getMenu().findItem(R.id.nav_schedule));
     }
 
     private void selectDrawerItem(MenuItem item) {

@@ -2,6 +2,7 @@ package com.example.androidhrambabynino;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,10 +24,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.transition.Slide;
 
 public class MyWebViewClient extends WebViewClient {
+    SharedPreferences preferences;
     MainActivity context;
 
     public MyWebViewClient(Context context) {
         this.context = (MainActivity) context;
+        preferences = context.getSharedPreferences("my_settings", 0);
     }
 
     @Override
@@ -54,6 +57,16 @@ public class MyWebViewClient extends WebViewClient {
             context.findViewById(R.id.layout_error).setVisibility(View.GONE);
         }
         super.onPageStarted(view, url, favicon);
+    }
+
+    @Override
+    public void onPageFinished(WebView webview, String url) {
+        if (preferences.getBoolean("dark_theme", false) == false) {
+            webview.loadUrl("javascript:setLightTheme()");
+        } else {
+            webview.loadUrl("javascript:setDarkTheme()");
+        }
+        super.onPageFinished(webview, url);
     }
 
     @Override
