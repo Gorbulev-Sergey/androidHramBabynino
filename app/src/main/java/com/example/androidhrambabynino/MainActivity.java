@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
+    SharedPreferences preferences;
     DrawerLayout drawer;
     Toolbar toolbar;
     NavigationView navigation;
@@ -30,34 +32,62 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        preferences = getSharedPreferences("my_settings", MODE_PRIVATE);
+        if (preferences.getBoolean("dark_theme", false) == false) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawer = findViewById(R.id.main_layout);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().
+
+                setDisplayHomeAsUpEnabled(true);
+
+        drawer =
+
+                findViewById(R.id.main_layout);
         drawer.addDrawerListener(toggler);
 
-        toggler = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        toggler = new
+
+                ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         toggler.setDrawerIndicatorEnabled(true);
         toggler.syncState();
 
-        navigation = findViewById(R.id.navigation);
+        navigation =
+
+                findViewById(R.id.navigation);
+
         setupDrawerContent(navigation);
 
-        webview = findViewById(R.id.webview);
-        myWebViewClient = new MyWebViewClient(this);
+        webview =
+
+                findViewById(R.id.webview);
+
+        myWebViewClient = new
+
+                MyWebViewClient(this);
         webview.setWebViewClient(myWebViewClient);
         webview.setBackgroundColor(Color.TRANSPARENT);
-        webview.getSettings().setSupportZoom(true);
-        webview.getSettings().setDomStorageEnabled(true);
-        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().
 
-        selectDrawerItem(navigation.getMenu().findItem(R.id.nav_schedule));
+                setSupportZoom(true);
+        webview.getSettings().
+
+                setDomStorageEnabled(true);
+        webview.getSettings().
+
+                setJavaScriptEnabled(true);
+
+        selectDrawerItem(navigation.getMenu().
+
+                findItem(R.id.nav_schedule));
     }
 
     private void selectDrawerItem(MenuItem item) {
@@ -104,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        toolbar.setTitle(item.getTitle().toString().replace("  ",""));
+        toolbar.setTitle(item.getTitle().toString().replace("  ", ""));
         item.setChecked(true);
         drawer.closeDrawers();
     }
@@ -126,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
