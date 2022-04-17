@@ -29,6 +29,8 @@ public class SettingsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener((v) -> onBackPressed());
 
         Spinner spinner = findViewById(R.id.spinner_load_page);
         ArrayList<String> list = new ArrayList<String>() {{
@@ -52,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 preferences.edit().putString("page", adapter.getItem(i)).apply();
-                switch (adapter.getItem(i)){
+                switch (adapter.getItem(i)) {
                     case "объявления":
                         preferences.edit().putInt("page_R_id", R.id.nav_anons).apply();
                         break;
