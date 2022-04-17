@@ -142,9 +142,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
+    protected void onResume() {
         webview.reload();
-        super.onStop();
+        super.onResume();
     }
 
     @Override
