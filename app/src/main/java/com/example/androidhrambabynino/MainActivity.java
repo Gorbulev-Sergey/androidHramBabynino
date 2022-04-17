@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setDomStorageEnabled(true);
         webview.getSettings().setJavaScriptEnabled(true);
 
-        selectDrawerItem(navigation.getMenu().findItem(R.id.nav_schedule));
+        selectDrawerItem(navigation.getMenu().findItem(preferences.getInt("page_R_id", R.id.nav_schedule)));
     }
 
     private void selectDrawerItem(MenuItem item) {
