@@ -1,27 +1,15 @@
 package com.example.androidhrambabynino;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.text.Layout;
-import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Dimension;
-import androidx.annotation.GravityInt;
-import androidx.core.view.ContentInfoCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.transition.Slide;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MyWebViewClient extends WebViewClient {
     SharedPreferences preferences;
@@ -46,12 +34,7 @@ public class MyWebViewClient extends WebViewClient {
             context.getSupportActionBar().setTitle("");
             view.setVisibility(View.GONE);
             context.findViewById(R.id.layout_error).setVisibility(View.VISIBLE);
-            context.findViewById(R.id.buttonReloadWebview).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        view.reload();
-                    }
-                });
+            context.findViewById(R.id.buttonReloadWebview).setOnClickListener(v -> view.reload());
         } else {
             view.setVisibility(View.VISIBLE);
             context.findViewById(R.id.layout_error).setVisibility(View.GONE);
@@ -66,6 +49,8 @@ public class MyWebViewClient extends WebViewClient {
         } else {
             webview.loadUrl("javascript:setDarkTheme()");
         }
+
+        ((SwipeRefreshLayout) context.findViewById(R.id.webview_refresher)).setRefreshing(false);
         super.onPageFinished(webview, url);
     }
 
@@ -81,11 +66,13 @@ public class MyWebViewClient extends WebViewClient {
 
     @Override
     public void onLoadResource(WebView view, String url) {
-        if (view.getTitle().contains("http") || view.getTitle().contains("Храм")) {
+        if (view.getTitle().contains("http")
+                || view.getTitle().contains("Храм")
+                || view.getTitle().contains("Не удалось")
+                || view.getTitle().contains("not")) {
             context.getSupportActionBar().setTitle("");
-        } else {
+        } else
             context.getSupportActionBar().setTitle(view.getTitle());
-        }
         super.onLoadResource(view, url);
     }
 
@@ -104,16 +91,12 @@ public class MyWebViewClient extends WebViewClient {
                 View.VISIBLE);
     }
 
-    String toUpperFirstChar(String item) {
-        return item.substring(0, 1).toUpperCase() + item.substring(1);
-    }
-
     public boolean hasInternet(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
-            NetworkInfo NetworkInfo = connectivityManager.getActiveNetworkInfo();
-            if (NetworkInfo != null)
-                if (NetworkInfo.isConnected())
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null)
+                if (networkInfo.isConnected())
                     return true;
         }
         return false;

@@ -1,16 +1,15 @@
 package com.example.androidhrambabynino;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     NavigationView navigation;
     ActionBarDrawerToggle toggler;
-    MyWebViewClient myWebViewClient;
+    MyWebViewClient webviewClient;
     WebView webview;
 
     @Override
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         drawer = findViewById(R.id.main_layout);
         drawer.addDrawerListener(toggler);
 
@@ -57,12 +55,17 @@ public class MainActivity extends AppCompatActivity {
         setupDrawerContent(navigation);
 
         webview = findViewById(R.id.webview);
-        myWebViewClient = new MyWebViewClient(this);
-        webview.setWebViewClient(myWebViewClient);
+        webviewClient = new MyWebViewClient(this);
+        webview.setWebViewClient(webviewClient);
         webview.setBackgroundColor(Color.TRANSPARENT);
         webview.getSettings().setSupportZoom(true);
         webview.getSettings().setDomStorageEnabled(true);
         webview.getSettings().setJavaScriptEnabled(true);
+
+        SwipeRefreshLayout refresh=findViewById(R.id.webview_refresher);
+        refresh.setOnRefreshListener(() -> {
+            webview.reload();
+        });
 
         selectDrawerItem(navigation.getMenu().findItem(preferences.getInt("page_R_id", R.id.nav_schedule)));
     }
