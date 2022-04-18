@@ -62,11 +62,10 @@ public class MainActivity extends AppCompatActivity {
         webview.getSettings().setDomStorageEnabled(true);
         webview.getSettings().setJavaScriptEnabled(true);
 
-        SwipeRefreshLayout refresh=findViewById(R.id.webview_refresher);
-        refresh.setOnRefreshListener(() -> {
-            webview.reload();
-        });
-
+        SwipeRefreshLayout webview_refresh = findViewById(R.id.webview_refresher);
+        webview_refresh.setOnRefreshListener(() -> webview.reload());
+        SwipeRefreshLayout error_refresher = findViewById(R.id.error_refresher);
+        error_refresher.setOnRefreshListener(() -> webview.reload());
         selectDrawerItem(navigation.getMenu().findItem(preferences.getInt("page_R_id", R.id.nav_schedule)));
     }
 

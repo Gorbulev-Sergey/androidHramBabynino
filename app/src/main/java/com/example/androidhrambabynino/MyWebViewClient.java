@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -32,12 +34,12 @@ public class MyWebViewClient extends WebViewClient {
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         if (!hasInternet(context)) {
             context.getSupportActionBar().setTitle("");
-            view.setVisibility(View.GONE);
-            context.findViewById(R.id.layout_error).setVisibility(View.VISIBLE);
+            context.findViewById(R.id.webview_refresher).setVisibility(View.GONE);
+            context.findViewById(R.id.error_refresher).setVisibility(View.VISIBLE);
             context.findViewById(R.id.buttonReloadWebview).setOnClickListener(v -> view.reload());
         } else {
-            view.setVisibility(View.VISIBLE);
-            context.findViewById(R.id.layout_error).setVisibility(View.GONE);
+            context.findViewById(R.id.webview_refresher).setVisibility(View.VISIBLE);
+            context.findViewById(R.id.error_refresher).setVisibility(View.GONE);
         }
         super.onPageStarted(view, url, favicon);
     }
@@ -51,6 +53,7 @@ public class MyWebViewClient extends WebViewClient {
         }
 
         ((SwipeRefreshLayout) context.findViewById(R.id.webview_refresher)).setRefreshing(false);
+        ((SwipeRefreshLayout) context.findViewById(R.id.error_refresher)).setRefreshing(false);
         super.onPageFinished(webview, url);
     }
 
